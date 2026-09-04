@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>客戶網站快速健診</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#f2f1ec; --surface:#ffffff; --surface-2:#f8f7f3;
+  --ink:#1b211f; --muted:#5d655f; --faint:#8b918a;
+  --border:#e4e2da; --border-strong:#d4d1c7;
+  --accent:#16606a; --accent-ink:#0f4a52; --accent-soft:#e2eef0;
+  --console:#141f1d; --console-2:#1c2a27; --console-ink:#dde6e1; --console-mut:#8fa39c; --console-accent:#63d2bf; --console-border:#2a3a36;
+  --hi:#a83a36; --hi-bg:#f6e5e2; --mid:#8f6415; --mid-bg:#f4ecd6; --lo:#357a54; --lo-bg:#e1efe6;
+  --shadow:0 1px 2px rgba(20,25,23,.04),0 6px 20px rgba(20,25,23,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#121618; --surface:#1a2023; --surface-2:#20272a;
+    --ink:#e8ece9; --muted:#9ba49e; --faint:#6c756f;
+    --border:#2a3236; --border-strong:#384246;
+    --accent:#54c4b5; --accent-ink:#7ad6c8; --accent-soft:#123033;
+    --console:#0d1513; --console-2:#151f1c; --console-ink:#dde6e1; --console-mut:#829890; --console-accent:#63d2bf; --console-border:#243430;
+    --hi:#e0857f; --hi-bg:#3a201e; --mid:#d6ab5c; --mid-bg:#332a17; --lo:#7cc496; --lo-bg:#182b20;
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#121618; --surface:#1a2023; --surface-2:#20272a;
+  --ink:#e8ece9; --muted:#9ba49e; --faint:#6c756f;
+  --border:#2a3236; --border-strong:#384246;
+  --accent:#54c4b5; --accent-ink:#7ad6c8; --accent-soft:#123033;
+  --console:#0d1513; --console-2:#151f1c; --console-ink:#dde6e1; --console-mut:#829890; --console-accent:#63d2bf; --console-border:#243430;
+  --hi:#e0857f; --hi-bg:#3a201e; --mid:#d6ab5c; --mid-bg:#332a17; --lo:#7cc496; --lo-bg:#182b20;
+  --shadow:0 1px 2px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,-apple-system,sans-serif; font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased}
+.wrap{max-width:880px; margin:0 auto; padding:0 22px}
+
+header{border-bottom:1px solid var(--border); background:linear-gradient(180deg,var(--surface-2),var(--ground))}
+.head{padding:40px 0 30px}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-ink); display:flex; align-items:center; gap:8px}
+.kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{font-family:"Archivo","Noto Sans TC",sans-serif; font-weight:700; font-size:clamp(28px,5vw,42px); line-height:1.1; margin:14px 0 0; text-wrap:balance; letter-spacing:-.01em}
+.lede{margin:14px 0 0; color:var(--muted); max-width:60ch; font-size:17px}
+.metastrip{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.chip{font-size:13px; padding:5px 11px; border-radius:999px; border:1px solid var(--border-strong); background:var(--surface); color:var(--muted); display:inline-flex; gap:7px; align-items:center}
+.chip b{color:var(--ink); font-weight:500}
+.chip.v{border-color:var(--accent); color:var(--accent-ink); background:var(--accent-soft)}
+
+.block{padding:36px 0; border-bottom:1px solid var(--border)}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+.layer{display:inline-block; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:12px; color:var(--console); background:var(--console-accent); border-radius:6px; padding:2px 8px; margin-right:8px}
+h2{font-family:"Archivo","Noto Sans TC",sans-serif; font-weight:700; font-size:23px; margin:10px 0 4px; letter-spacing:-.01em; text-wrap:balance}
+h3{font-family:"Archivo","Noto Sans TC",sans-serif; font-weight:600; font-size:16px; margin:22px 0 8px}
+p{margin:12px 0} a{color:var(--accent-ink); text-underline-offset:3px}
+.note{color:var(--muted); font-size:15px}
+
+.flow{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0}
+.flow .card{flex:1; min-width:200px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
+.flow .card b{display:block; font-family:"Archivo","Noto Sans TC",sans-serif; margin-bottom:4px}
+.flow .card span{font-size:13.5px; color:var(--muted)}
+
+.console{background:var(--console); border:1px solid var(--console-border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); margin-top:18px}
+.console-bar{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--console-2); border-bottom:1px solid var(--console-border)}
+.lights{display:flex; gap:7px}
+.lights i{width:11px;height:11px;border-radius:50%;display:block;opacity:.85}
+.lights i:nth-child(1){background:#e06a5f}.lights i:nth-child(2){background:#e0b44f}.lights i:nth-child(3){background:#63d2bf}
+.console-title{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--console-mut); letter-spacing:.04em}
+.copybtn{margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:500; color:var(--console); background:var(--console-accent); border:none; padding:7px 14px; border-radius:8px; cursor:pointer; transition:transform .08s ease, opacity .15s ease}
+.copybtn:hover{opacity:.9}.copybtn:active{transform:translateY(1px)}
+.copybtn:focus-visible{outline:2px solid var(--console-accent); outline-offset:2px}
+.console pre{margin:0; padding:22px 20px; overflow-x:auto; color:var(--console-ink);
+  font-family:"IBM Plex Mono","Noto Sans TC",monospace; font-size:13px; line-height:1.72; white-space:pre-wrap; word-break:break-word; tab-size:2}
+
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:16px 0; display:flex; flex-direction:column; gap:10px}
+ol.steps li{counter-increment:s; position:relative; padding:12px 14px 12px 48px; background:var(--surface); border:1px solid var(--border); border-radius:10px}
+ol.steps li::before{content:counter(s); position:absolute; left:12px; top:11px; width:24px; height:24px; border-radius:7px; background:var(--accent-soft); color:var(--accent-ink); font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:500; display:grid; place-items:center}
+ol.steps li b{font-weight:700}
+ul.tick{list-style:none; padding:0; margin:14px 0; display:flex; flex-direction:column; gap:9px}
+ul.tick li{position:relative; padding-left:24px}
+ul.tick li::before{content:"›"; position:absolute; left:4px; top:-1px; color:var(--accent); font-weight:700}
+.pill{display:inline-block; font-size:12px; font-weight:500; padding:1px 8px; border-radius:999px; margin-right:6px}
+.p-ok{background:var(--lo-bg); color:var(--lo)} .p-warn{background:var(--hi-bg); color:var(--hi)}
+
+.callout{background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:16px 0}
+.callout .lab{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-ink); font-weight:500}
+.callout p{margin:8px 0 0; font-size:14.5px; color:var(--muted)}
+
+footer{padding:32px 0 60px; color:var(--faint); font-size:13px}
+footer .rule{font-family:"IBM Plex Mono",monospace}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <div class="kicker"><span class="dot"></span>提案前置工具 · 三層架構</div>
+    <h1>客戶網站 SEO／GEO 快速健診</h1>
+    <p class="lede">開啟客戶官網，讓具備瀏覽能力的 Claude 直接讀取，快速判斷架站平台、SEO／GEO 基礎建置訊號，以及搜尋與 AI 的內容存取風險，作為提案前的分析素材。</p>
+    <div class="metastrip">
+      <span class="chip v"><b>v3</b> 基礎建置訊號 · 強指紋 · AI 爬蟲分流</span>
+      <span class="chip">定位 <b>提案前快速健診</b></span>
+      <span class="chip">資料 <b>第三方＋瀏覽器可觀察</b></span>
+      <span class="chip">無 <b>GA4／Search Console</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="block">
+    <div class="eyebrow">How it works</div>
+    <h2>三層怎麼用</h2>
+    <p class="note">按需載入：每案只執行 ① 主 Prompt；僅在平台判定為「低／未能確認」時，才將 ② Reference 提供給 AI；③ 團隊 SOP 僅供同仁閱讀，不提供給 AI。</p>
+    <div class="flow">
+      <div class="card"><b>① 主 Prompt</b><span>每案皆須執行。讓 Claude 讀取官網並產出快速健診報告。</span></div>
+      <div class="card"><b>② 平台 Reference</b><span>僅在主 Prompt 對平台判定信心低時載入。</span></div>
+      <div class="card"><b>③ 團隊 SOP</b><span>供同仁閱讀的操作說明，不提供給 AI。</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow"><span class="layer">①</span>Main Prompt · 每案執行</div>
+    <h2>主 Prompt</h2>
+    <p class="note">複製完整內容，貼給具備瀏覽能力的 Claude（Claude in Chrome 或可操作瀏覽器的 Agent）。</p>
+    <div class="console">
+      <div class="console-bar">
+        <span class="lights"><i></i><i></i><i></i></span>
+        <span class="console-title">quick-audit.prompt</span>
+        <button class="copybtn" data-copy="p1" type="button">複製整段</button>
+      </div>
+      <pre id="p1">你是將能數位行銷的資深 SEO／GEO 顧問。
+
+請實際使用瀏覽器工具讀取目前開啟的客戶官網；若目前沒有網站分頁，請使用我提供的網址進行檢查。
+
+這是提案前的快速健診，沒有客戶 GA4、Google Search Console 或網站後台權限，只能依第三方工具與瀏覽器可實際觀察到的資訊判斷。
+
+【請實際檢查】
+
+1. 目前頁面的原始 HTML 與 head：
+title、meta description、meta robots、canonical、hreflang、viewport、Open Graph、JSON-LD。
+
+2. 網站基礎檔案：
+/robots.txt
+/sitemap.xml 或 /sitemap_index.xml
+/llms.txt（若有）
+
+3. 頁面載入的 script、CSS、圖片資產網域與其他可觀察技術線索，用來辨識架站平台與追蹤／行銷工具。
+
+4. 原始 HTML 與 JavaScript 渲染後頁面的差異，確認主要內容與連結是否高度依賴 JS。
+
+5. 頁面內容結構：
+H1／H2、主要文字內容、圖片 ALT、FAQ、結構化資料，以及頁面是否能清楚說明主題。
+
+【判斷規則】
+
+1. 只報告實際讀取或觀察到的內容，不得臆測；無法確認就直接說明。
+
+2. 清楚區分「已確認」與「推測」。所有重要結論都需附上實際辨識依據。
+
+3. 單頁只能反映目前檢查頁面的狀況，不得直接推論全站皆相同。
+
+4. 架站平台需綜合 script／CSS／圖片資產網域、原始碼、頁尾、網址結構等證據判斷，不可只憑單一字串。
+
+5. 平台判斷需標示：
+平台｜信心度（高／中／低／未能確認）｜辨識依據
+
+6. 若平台信心為「低／未能確認」：
+- 不得直接判定為客製化網站
+- 優先確認是否為台灣在地 SaaS／電商平台
+- 可搭配平台辨識 Reference、Wappalyzer、WhatCMS 或公開資料覆核
+- 未確認平台前，不得自行判定技術 SEO 可控性高低
+
+7. 技術可控性需區分「平台通常具備的能力」與「目前實際能否修改」。後者若沒有後台或方案資訊，只能標示需向客戶／平台確認。
+
+8. llms.txt 可記錄是否存在，但目前不是 SEO／GEO 必備項目，沒有 llms.txt 不得直接列為缺失。
+
+9. 檢查 robots.txt 中與搜尋引擎及 AI 服務相關的存取規則時，需依各 crawler 的實際用途分開說明，不得把「AI 搜尋內容存取」與「模型訓練資料使用」混為一談，也不得將封鎖訓練型 crawler 直接視為 GEO 缺失。
+
+10. 偵測到 GA4、GTM、Meta Pixel、Google Ads、LINE、TikTok 等工具，只能表示網站存在相關追蹤／行銷技術，不代表目前一定正在執行該行銷活動。
+
+【輸出格式】
+
+■ 受檢資訊
+網址、檢查範圍，以及本次實際讀取到的頁面／檔案。
+
+■ 1. 架站平台與技術修改限制
+平台、信心度、辨識依據。
+說明目前可合理判斷的技術 SEO 可控性，以及可能受平台／開發資源限制的項目。
+無法確認的部分直接標示需人工覆核。
+
+■ 2. SEO／GEO 基礎建置訊號
+整理目前頁面已具備與缺少的 SEO／AI 理解基礎，例如：
+Title／Meta、標題結構、canonical、hreflang、結構化資料、FAQ、文字資訊完整度等。
+
+僅描述可觀察到的建置狀況，不直接判定實際 SEO／GEO 成效。
+
+■ 3. 搜尋引擎與 AI 內容存取風險
+列出真正可能影響搜尋引擎或 AI 取得、理解內容的問題。
+
+每項以：
+問題｜依據｜可能影響｜嚴重度
+
+呈現。
+
+優先檢查：
+robots.txt、meta robots、canonical、Sitemap、JS 渲染、結構化資料、H1／H2、重要資訊圖片化、多語 hreflang，以及 AI 相關存取規則。
+
+■ 4. 追蹤與行銷工具配置
+列出實際偵測到的分析、廣告、社群、再行銷或其他追蹤工具。
+只描述已偵測到的技術，不反推目前實際行銷活動。
+
+■ 5. 需進一步補查的項目
+先說明本次無法確認的項目，再列出建議工具：
+
+自然搜尋與關鍵字：Ahrefs
+Google 搜尋收錄線索：site: 查詢
+實際索引狀況：Google Search Console（取得權限後）
+速度與 Core Web Vitals：PageSpeed Insights
+全站 404、轉址、重複內容等：Screaming Frog
+
+文字需精簡、自然、讓非 SEO 背景的客戶也能理解，可直接作為提案前分析素材。</pre>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow"><span class="layer">②</span>Reference · 平台低信心時才載入</div>
+    <h2>台灣常見架站平台辨識 Reference</h2>
+    <div class="callout">
+      <span class="lab">何時使用</span>
+      <p>僅在 ① 主 Prompt 將架站平台判定為「低／未能確認」時，才將這份內容複製給 AI 覆核，以避免將模板型 SaaS 誤判為客製化網站。</p>
+    </div>
+    <div class="console">
+      <div class="console-bar">
+        <span class="lights"><i></i><i></i><i></i></span>
+        <span class="console-title">platform-reference.md</span>
+        <button class="copybtn" data-copy="p2" type="button">複製整段</button>
+      </div>
+      <pre id="p2"># 台灣常見架站平台辨識 Reference
+
+用途：
+當網站架站平台無法明確辨識時，協助判斷台灣常見 SaaS／電商平台，避免把模板型 SaaS 誤判為客製化網站。
+
+【判斷原則】
+
+1. 優先看 script、CSS、圖片等「資產網域主機」。
+2. 頁尾、URL 格式、原始碼字串、結帳網址只能作為輔助證據。
+3. 單一關鍵字不可作為平台確認依據。
+4. 找不到 CMS 指紋不代表客製化。
+5. 低信心平台需搭配官方資料、WhatCMS、Wappalyzer 或人工確認。
+6. 平台辨識與「客戶實際可修改哪些 SEO 項目」是兩件事；後者仍可能受到方案、權限與客製程度影響。
+
+【主流平台】
+
+WordPress
+強指紋：wp-content、wp-includes、wp-json、generator=WordPress
+一般特性：開源、整體可控性較高，但仍受主題／外掛／開發方式影響。
+
+Shopify
+強指紋：cdn.shopify.com、myshopify.com、/cdn/shop/
+輔助：/products/、/collections/、Powered by Shopify
+一般特性：SaaS，部分 URL 與模板架構固定，深度調整可能需 Liquid／App。
+
+Wix
+強指紋：wixstatic.com、parastorage.com
+一般特性：SaaS，部分伺服器與底層技術設定受平台限制。
+
+OpenCart
+強／中強線索：index.php?route=、catalog/view/
+輔助：Powered By OpenCart
+一般特性：開源，可控性取決於模板與開發資源。
+
+【台灣／亞洲 SaaS】
+
+SHOPLINE
+強指紋：
+cdn.shoplineapp.com
+img.shoplineapp.com
+shoplineimg.com
+shoplytics.com
+myshopline.com
+
+輔助：頁尾 SHOPLINE 技術支援字樣。
+
+技術判斷：
+視為模板型 SaaS；Title／Meta、結構化資料、URL 等實際可調範圍依平台功能與方案確認。
+
+91APP
+強指紋：
+*.91app.com
+例如 tracking-client.91app.com、cdn.91app.com、img.91app.com
+
+輔助：官方 APP／相關頁面線索。
+
+技術判斷：
+常見 SPA／App 化架構，需特別確認原始 HTML 與 JS 渲染後內容差異。
+
+CYBERBIZ
+線索：cyberbiz.io 等相關平台網域。
+信心不足時需覆核。
+
+meepShop
+線索：meepshop、meepcloud 等平台網域。
+部分網站可能採一頁式商店架構，需依實際網站確認。
+
+【低信心台灣 SaaS】
+
+以下平台不宜只靠單一字串確認：
+QDM
+WACA
+JOO
+BV SHOP
+FreeStore
+
+若懷疑屬上述平台：
+- 查頁尾技術支援文字
+- 查 script／CSS／圖片資產主機
+- 查看購物車／結帳流程網址
+- 查看 robots.txt／sitemap 格式
+- 使用 WhatCMS／其他工具或公開資料覆核
+
+在確認前：
+不得標示為客製化網站，也不得直接判定技術可控性高。
+
+JOO：
+若確認為 JOO，index.php?action= 等動態參數可能與平台架構有關，不應直接寫成「客戶網站技術錯誤」。
+
+FreeStore／一頁式商店：
+若確認網站本身就是一頁式架構，分類階層、麵包屑等一般電商檢查項目可能不適用。
+
+M2 微商城：
+若實際屬 LINE／LIFF 等微商城生態，需先確認是否具備可正常由搜尋引擎索引的獨立公開網站，再決定哪些 SEO 健診項目適用。
+
+【其他架構】
+
+SAP Commerce Cloud／Spartacus
+spartacus、SAP 等為重要線索，但需搭配其他證據確認。
+常見企業級 SPA；需檢查 JS 渲染與原始 HTML。
+
+Next.js
+__next、Next.js 相關資產只能證明前端框架，不代表網站一定為「純客製化」。
+仍需另外判斷 CMS／Commerce／Headless 後端。
+
+客製化網站
+只有在合理排除 CMS、SaaS、Headless Commerce 等可能後，才能標示為「推測客製化」。
+技術可控性不得自動寫成高，實際仍取決於原始架構與開發資源。</pre>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="eyebrow"><span class="layer">③</span>SOP · 給同仁看，不進 AI</div>
+    <h2>團隊使用 SOP</h2>
+    <p class="note">適用工具：具備網站瀏覽能力的 Claude（Claude in Chrome、可操作瀏覽器的 Agent／Cowork）。不需限定 Chrome 外掛。</p>
+    <ol class="steps">
+      <li><b>Step 1</b>　開啟客戶官網首頁，或直接把客戶網址提供給 Agent。</li>
+      <li><b>Step 2</b>　執行「客戶網站 SEO／GEO 快速健診」主 Prompt。</li>
+      <li><b>Step 3</b>　先看架站平台信心度。<span class="pill p-ok">高／中</span>證據合理可續用報告；<span class="pill p-warn">低／未能確認</span>不要直接採用平台與技術限制結論，進 Step 4。</li>
+      <li><b>Step 4</b>　用「台灣常見架站平台辨識 Reference」進一步判斷。必要時搭配 Wappalyzer、WhatCMS、人工查看原始碼／資產網域／頁尾／結帳網址。仍無法確認就保留「未能確認」，不要硬判。</li>
+      <li><b>Step 5</b>　檢查報告裡所有「需進一步補查」項目。依需求用 Ahrefs（自然搜尋／關鍵字／頁面）、PageSpeed Insights（速度／CWV）、Screaming Frog（全站技術）、site:（收錄線索）。</li>
+      <li><b>Step 6</b>　挑真正適合提案的問題，不要把整份報告直接搬上簡報。快速健診的目的是「找出值得進一步確認與提案切入的問題」，不是在沒有後台與完整爬站資料下替網站下完整技術診斷。</li>
+    </ol>
+    <h3>進階使用</h3>
+    <ul class="tick">
+      <li><b>特定內頁</b>：切到產品頁、服務頁或文章頁後重新執行，可比較不同頁型。</li>
+      <li><b>競業</b>：分別對競業執行同一 Prompt，再挑真正有差異的項目比較。</li>
+      <li><b>平台辨識</b>：團隊未來驗證出新的台灣平台指紋，只更新 Reference，不需要改主 Prompt。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="rule">將能數位 · 客戶部提案前置工具 · 客戶網站 SEO／GEO 快速健診 v3（三層架構）</p>
+    <p>本頁僅供團隊內部使用。畫面中的平台與技術判斷皆為「頁面層級推估」，實際流量、排名與收錄情況仍須透過第三方工具覆核。</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var pre=document.getElementById(btn.getAttribute('data-copy'));
+      if(!pre)return;
+      var text=pre.textContent;
+      var done=function(){var o=btn.textContent;btn.textContent='已複製 ✓';setTimeout(function(){btn.textContent=o;},1600);};
+      var manual=function(){try{var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();done();}catch(e){btn.textContent='請手動選取';setTimeout(function(){btn.textContent='複製整段';},2000);}};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(manual);}else{manual();}
+    });
+  });
+})();
+</script>
+</body>
+</html>
