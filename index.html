@@ -7,7 +7,7 @@
 <title>客戶網站快速健診</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap">
 
 <style>
 :root{
@@ -42,7 +42,8 @@
 
 *{box-sizing:border-box}
 body{margin:0; background:var(--ground); color:var(--ink);
-  font-family:"Noto Sans TC",system-ui,-apple-system,sans-serif; font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased}
+  font-family:"Noto Sans TC",system-ui,-apple-system,sans-serif; font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased; line-break:strict}
+p,li,.flow .card span,.callout p{text-wrap:pretty}
 .wrap{max-width:880px; margin:0 auto; padding:0 22px}
 
 header{border-bottom:1px solid var(--border); background:linear-gradient(180deg,var(--surface-2),var(--ground))}
@@ -65,7 +66,7 @@ p{margin:12px 0} a{color:var(--accent-ink); text-underline-offset:3px}
 .note{color:var(--muted); font-size:15px}
 
 .flow{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0}
-.flow .card{flex:1; min-width:200px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
+.flow .card{flex:1; min-width:200px; display:flex; flex-direction:column; justify-content:center; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow)}
 .flow .card b{display:block; font-family:"Archivo","Noto Sans TC",sans-serif; margin-bottom:4px}
 .flow .card span{font-size:13.5px; color:var(--muted)}
 
@@ -80,11 +81,15 @@ p{margin:12px 0} a{color:var(--accent-ink); text-underline-offset:3px}
 .copybtn:focus-visible{outline:2px solid var(--console-accent); outline-offset:2px}
 .console pre{margin:0; padding:22px 20px; overflow-x:auto; color:var(--console-ink);
   font-family:"IBM Plex Mono","Noto Sans TC",monospace; font-size:13px; line-height:1.72; white-space:pre-wrap; word-break:break-word; tab-size:2}
+.console pre b{font-weight:700; color:var(--console-accent)}
+.console pre .sub{color:var(--console-mut); font-size:.92em}
 
 ol.steps{counter-reset:s; list-style:none; padding:0; margin:16px 0; display:flex; flex-direction:column; gap:10px}
 ol.steps li{counter-increment:s; position:relative; padding:12px 14px 12px 48px; background:var(--surface); border:1px solid var(--border); border-radius:10px}
 ol.steps li::before{content:counter(s); position:absolute; left:12px; top:11px; width:24px; height:24px; border-radius:7px; background:var(--accent-soft); color:var(--accent-ink); font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:500; display:grid; place-items:center}
 ol.steps li b{font-weight:700}
+ol.steps .opt{display:block; margin-top:4px}
+ol.steps .sub{display:block; margin-top:4px; font-size:14px; color:var(--muted)}
 ul.tick{list-style:none; padding:0; margin:14px 0; display:flex; flex-direction:column; gap:9px}
 ul.tick li{position:relative; padding-left:24px}
 ul.tick li::before{content:"›"; position:absolute; left:4px; top:-1px; color:var(--accent); font-weight:700}
@@ -92,7 +97,7 @@ ul.tick li::before{content:"›"; position:absolute; left:4px; top:-1px; color:v
 .p-ok{background:var(--lo-bg); color:var(--lo)} .p-warn{background:var(--hi-bg); color:var(--hi)}
 
 .callout{background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:16px 0}
-.callout .lab{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-ink); font-weight:500}
+.callout .lab{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-ink); font-weight:700}
 .callout p{margin:8px 0 0; font-size:14.5px; color:var(--muted)}
 
 footer{padding:32px 0 60px; color:var(--faint); font-size:13px}
@@ -118,9 +123,9 @@ footer .rule{font-family:"IBM Plex Mono",monospace}
 <div class="wrap">
 
   <section class="block">
-    <div class="eyebrow">How it works</div>
+    <div class="eyebrow">使用方式</div>
     <h2>三層怎麼用</h2>
-    <p class="note">按需載入：每案只執行 ① 主 Prompt；僅在平台判定為「低／未能確認」時，才將 ② Reference 提供給 AI；③ 團隊 SOP 僅供同仁閱讀，不提供給 AI。</p>
+    <p class="note">每案都執行 ① 主 Prompt。平台判定為「低」或「未能確認」時，才把 ② Reference 提供給 AI。③ 團隊 SOP 只給同仁閱讀，不提供給 AI。</p>
     <div class="flow">
       <div class="card"><b>① 主 Prompt</b><span>每案皆須執行。讓 Claude 讀取官網並產出快速健診報告。</span></div>
       <div class="card"><b>② 平台 Reference</b><span>僅在主 Prompt 對平台判定信心低時載入。</span></div>
@@ -129,7 +134,7 @@ footer .rule{font-family:"IBM Plex Mono",monospace}
   </section>
 
   <section class="block">
-    <div class="eyebrow"><span class="layer">①</span>Main Prompt · 每案執行</div>
+    <div class="eyebrow"><span class="layer">①</span>每案執行</div>
     <h2>主 Prompt</h2>
     <p class="note">複製完整內容，貼給具備瀏覽能力的 Claude（Claude in Chrome 或可操作瀏覽器的 Agent）。</p>
     <div class="console">
@@ -140,11 +145,11 @@ footer .rule{font-family:"IBM Plex Mono",monospace}
       </div>
       <pre id="p1">你是將能數位行銷的資深 SEO／GEO 顧問。
 
-請實際使用瀏覽器工具讀取目前開啟的客戶官網；若目前沒有網站分頁，請使用我提供的網址進行檢查。
+請實際使用瀏覽器工具讀取目前開啟的客戶官網。若目前沒有網站分頁，請使用我提供的網址進行檢查。
 
 這是提案前的快速健診，沒有客戶 GA4、Google Search Console 或網站後台權限，只能依第三方工具與瀏覽器可實際觀察到的資訊判斷。
 
-【請實際檢查】
+<b>【請實際檢查】</b>
 
 1. 目前頁面的原始 HTML 與 head：
 title、meta description、meta robots、canonical、hreflang、viewport、Open Graph、JSON-LD。
@@ -152,7 +157,7 @@ title、meta description、meta robots、canonical、hreflang、viewport、Open 
 2. 網站基礎檔案：
 /robots.txt
 /sitemap.xml 或 /sitemap_index.xml
-/llms.txt（若有）
+/llms.txt<span class="sub">（若有）</span>
 
 3. 頁面載入的 script、CSS、圖片資產網域與其他可觀察技術線索，用來辨識架站平台與追蹤／行銷工具。
 
@@ -164,11 +169,11 @@ H1／H2、主要文字內容、圖片 ALT、FAQ、結構化資料，以及頁面
 6. 搜尋結果顯示的文字：
 若檢查多頁，比對各頁 title、meta description 是否重複，或沿用平台預設文字。
 確認 title、meta description 是否與頁面實際內容一致。
-確認是否過長、可能在搜尋結果中被截斷（參考值：title 約 30 個中文字，meta description 約 80 個中文字）。
+確認是否過長、可能在搜尋結果中被截斷<span class="sub">（參考值：title 約 30 個中文字，meta description 約 80 個中文字）</span>。
 
-【判斷規則】
+<b>【判斷規則】</b>
 
-1. 只報告實際讀取或觀察到的內容，不得臆測；無法確認就直接說明。
+1. 只報告實際讀取或觀察到的內容，不得臆測。無法確認就直接說明。
 
 2. 清楚區分「已確認」與「推測」。所有重要結論都需附上實際辨識依據。
 
@@ -194,20 +199,20 @@ H1／H2、主要文字內容、圖片 ALT、FAQ、結構化資料，以及頁面
 10. 偵測到 GA4、GTM、Meta Pixel、Google Ads、LINE、TikTok 等工具，只能表示網站存在相關追蹤／行銷技術，不代表目前一定正在執行該行銷活動。
 
 11. 嚴重度分三級，標準如下：
-高：可能讓頁面無法被搜尋引擎或 AI 取得、收錄。例如 noindex 誤設、robots.txt 封鎖搜尋引擎、canonical 指向其他頁、主要內容只在 JS 渲染後才出現（多數 AI 爬蟲不執行 JS）。
+高：可能讓頁面無法被搜尋引擎或 AI 取得、收錄。例如 noindex 誤設、robots.txt 封鎖搜尋引擎、canonical 指向其他頁、主要內容只在 JS 渲染後才出現<span class="sub">（多數 AI 爬蟲不執行 JS）</span>。
 中：頁面可被收錄，但搜尋引擎或 AI 不易理解主題。例如缺少 H1、標題重複、重要資訊做成圖片、缺少結構化資料。
 低：補上會更完整，但不影響收錄與理解。例如少數圖片缺 ALT、缺少 Open Graph。
 無法確認影響程度時，標示「待確認」，不要往高的方向標。
 
-12. 應檢查但沒有讀取到的項目（例如檔案打不開、頁面被擋、工具無法執行），要在所屬段落直接標示「未檢查：項目｜原因」。未檢查不等於沒有問題，不得寫成正常，也不得推測結果。
+12. 應檢查但沒有讀取到的項目<span class="sub">（例如檔案打不開、頁面被擋、工具無法執行）</span>，要在所屬段落直接標示「未檢查：項目｜原因」。未檢查不等於沒有問題，不得寫成正常，也不得推測結果。
 
 13. 以下狀況不得直接列為缺失：
 - 沒有 FAQPage 或 HowTo 結構化資料。Google 自 2023 年起只對政府與醫療網站顯示 FAQ 複合式搜尋結果，HowTo 複合式搜尋結果已停止顯示。頁面上看得到的問答內容仍可照實記錄。
 - 字數少。字數不是 Google 排名因素。只有頁面無法清楚說明主題時，才以「文字資訊不足」描述。
 
-【輸出格式】
+<b>【輸出格式】</b>
 
-■ 重點摘要
+<b>■ 重點摘要</b>
 第一句先寫本次檢查了幾頁、是哪幾頁。
 
 接著列出最值得放進提案的問題，最多 3 個。符合條件的不足 3 個就少列，不要湊數。
@@ -222,21 +227,21 @@ H1／H2、主要文字內容、圖片 ALT、FAQ、結構化資料，以及頁面
 
 如果沒有符合條件的問題，直接寫「本次未發現需優先提案的問題」。
 
-■ 受檢資訊
+<b>■ 受檢資訊</b>
 網址、檢查範圍，以及本次實際讀取到的頁面／檔案。
 
-■ 1. 架站平台與技術修改限制
+<b>■ 1. 架站平台與技術修改限制</b>
 平台、信心度、辨識依據。
 說明目前可合理判斷的技術 SEO 可控性，以及可能受平台／開發資源限制的項目。
 無法確認的部分直接標示需人工覆核。
 
-■ 2. SEO／GEO 基礎建置訊號
+<b>■ 2. SEO／GEO 基礎建置訊號</b>
 整理目前頁面已具備與缺少的 SEO／AI 理解基礎，例如：
 Title／Meta、標題結構、canonical、hreflang、結構化資料、FAQ、文字資訊完整度等。
 
 僅描述可觀察到的建置狀況，不直接判定實際 SEO／GEO 成效。
 
-■ 3. 搜尋引擎與 AI 內容存取風險
+<b>■ 3. 搜尋引擎與 AI 內容存取風險</b>
 列出真正可能影響搜尋引擎或 AI 取得、理解內容的問題。
 
 每項以：
@@ -247,16 +252,16 @@ Title／Meta、標題結構、canonical、hreflang、結構化資料、FAQ、文
 優先檢查：
 robots.txt、meta robots、canonical、Sitemap、JS 渲染、結構化資料、H1／H2、重要資訊圖片化、多語 hreflang，以及 AI 相關存取規則。
 
-■ 4. 追蹤與行銷工具配置
+<b>■ 4. 追蹤與行銷工具配置</b>
 列出實際偵測到的分析、廣告、社群、再行銷或其他追蹤工具。
 只描述已偵測到的技術，不反推目前實際行銷活動。
 
-■ 5. 需進一步補查的項目
+<b>■ 5. 需進一步補查的項目</b>
 先彙整前面各段標示「未檢查」的項目，再列出建議工具：
 
 自然搜尋與關鍵字：Ahrefs
 Google 搜尋收錄線索：site: 查詢
-實際索引狀況：Google Search Console（取得權限後）
+實際索引狀況：Google Search Console<span class="sub">（取得權限後）</span>
 速度與 Core Web Vitals：PageSpeed Insights
 全站 404、轉址、重複內容等：Screaming Frog
 
@@ -265,7 +270,7 @@ Google 搜尋收錄線索：site: 查詢
   </section>
 
   <section class="block">
-    <div class="eyebrow"><span class="layer">②</span>Reference · 平台低信心時才載入</div>
+    <div class="eyebrow"><span class="layer">②</span>平台信心低時才使用</div>
     <h2>台灣常見架站平台辨識 Reference</h2>
     <div class="callout">
       <span class="lab">何時使用</span>
@@ -277,43 +282,43 @@ Google 搜尋收錄線索：site: 查詢
         <span class="console-title">platform-reference.md</span>
         <button class="copybtn" data-copy="p2" type="button">複製整段</button>
       </div>
-      <pre id="p2"># 台灣常見架站平台辨識 Reference
+      <pre id="p2"><b># 台灣常見架站平台辨識 Reference</b>
 
 用途：
 當網站架站平台無法明確辨識時，協助判斷台灣常見 SaaS／電商平台，避免把模板型 SaaS 誤判為客製化網站。
 
-【判斷原則】
+<b>【判斷原則】</b>
 
 1. 優先看 script、CSS、圖片等「資產網域主機」。
 2. 頁尾、URL 格式、原始碼字串、結帳網址只能作為輔助證據。
 3. 單一關鍵字不可作為平台確認依據。
 4. 找不到 CMS 指紋不代表客製化。
 5. 低信心平台需搭配官方資料、WhatCMS、Wappalyzer 或人工確認。
-6. 平台辨識與「客戶實際可修改哪些 SEO 項目」是兩件事；後者仍可能受到方案、權限與客製程度影響。
+6. 平台辨識與「客戶實際可修改哪些 SEO 項目」是兩件事。後者仍可能受到方案、權限與客製程度影響。
 
-【主流平台】
+<b>【主流平台】</b>
 
-WordPress
+<b>WordPress</b>
 強指紋：wp-content、wp-includes、wp-json、generator=WordPress
 一般特性：開源、整體可控性較高，但仍受主題／外掛／開發方式影響。
 
-Shopify
+<b>Shopify</b>
 強指紋：cdn.shopify.com、myshopify.com、/cdn/shop/
 輔助：/products/、/collections/、Powered by Shopify
 一般特性：SaaS，部分 URL 與模板架構固定，深度調整可能需 Liquid／App。
 
-Wix
+<b>Wix</b>
 強指紋：wixstatic.com、parastorage.com
 一般特性：SaaS，部分伺服器與底層技術設定受平台限制。
 
-OpenCart
+<b>OpenCart</b>
 強／中強線索：index.php?route=、catalog/view/
 輔助：Powered By OpenCart
 一般特性：開源，可控性取決於模板與開發資源。
 
-【台灣／亞洲 SaaS】
+<b>【台灣／亞洲 SaaS】</b>
 
-SHOPLINE
+<b>SHOPLINE</b>
 強指紋：
 cdn.shoplineapp.com
 img.shoplineapp.com
@@ -324,9 +329,9 @@ myshopline.com
 輔助：頁尾 SHOPLINE 技術支援字樣。
 
 技術判斷：
-視為模板型 SaaS；Title／Meta、結構化資料、URL 等實際可調範圍依平台功能與方案確認。
+視為模板型 SaaS。Title／Meta、結構化資料、URL 等實際可調範圍依平台功能與方案確認。
 
-91APP
+<b>91APP</b>
 強指紋：
 *.91app.com
 例如 tracking-client.91app.com、cdn.91app.com、img.91app.com
@@ -336,15 +341,15 @@ myshopline.com
 技術判斷：
 常見 SPA／App 化架構，需特別確認原始 HTML 與 JS 渲染後內容差異。
 
-CYBERBIZ
+<b>CYBERBIZ</b>
 線索：cyberbiz.io 等相關平台網域。
 信心不足時需覆核。
 
-meepShop
+<b>meepShop</b>
 線索：meepshop、meepcloud 等平台網域。
 部分網站可能採一頁式商店架構，需依實際網站確認。
 
-【低信心台灣 SaaS】
+<b>【低信心台灣 SaaS】</b>
 
 以下平台不宜只靠單一字串確認：
 QDM
@@ -363,42 +368,42 @@ FreeStore
 在確認前：
 不得標示為客製化網站，也不得直接判定技術可控性高。
 
-JOO：
+<b>JOO：</b>
 若確認為 JOO，index.php?action= 等動態參數可能與平台架構有關，不應直接寫成「客戶網站技術錯誤」。
 
-FreeStore／一頁式商店：
+<b>FreeStore／一頁式商店：</b>
 若確認網站本身就是一頁式架構，分類階層、麵包屑等一般電商檢查項目可能不適用。
 
-M2 微商城：
+<b>M2 微商城：</b>
 若實際屬 LINE／LIFF 等微商城生態，需先確認是否具備可正常由搜尋引擎索引的獨立公開網站，再決定哪些 SEO 健診項目適用。
 
-【其他架構】
+<b>【其他架構】</b>
 
-SAP Commerce Cloud／Spartacus
+<b>SAP Commerce Cloud／Spartacus</b>
 spartacus、SAP 等為重要線索，但需搭配其他證據確認。
-常見企業級 SPA；需檢查 JS 渲染與原始 HTML。
+常見企業級 SPA。需檢查 JS 渲染與原始 HTML。
 
-Next.js
+<b>Next.js</b>
 __next、Next.js 相關資產只能證明前端框架，不代表網站一定為「純客製化」。
 仍需另外判斷 CMS／Commerce／Headless 後端。
 
-客製化網站
+<b>客製化網站</b>
 只有在合理排除 CMS、SaaS、Headless Commerce 等可能後，才能標示為「推測客製化」。
 技術可控性不得自動寫成高，實際仍取決於原始架構與開發資源。</pre>
     </div>
   </section>
 
   <section class="block">
-    <div class="eyebrow"><span class="layer">③</span>SOP · 給同仁看，不進 AI</div>
+    <div class="eyebrow"><span class="layer">③</span>給同仁看，不提供給 AI</div>
     <h2>團隊使用 SOP</h2>
     <p class="note">適用工具：具備網站瀏覽能力的 Claude（Claude in Chrome、可操作瀏覽器的 Agent／Cowork）。不需限定 Chrome 外掛。</p>
     <ol class="steps">
-      <li><b>Step 1</b>　開啟客戶官網並提供網址。建議一次提供「首頁＋一個產品／服務頁＋一個內容／文章頁」——只看首頁不足以代表全站；各頁分別執行或一次帶入，最後綜合。</li>
+      <li><b>Step 1</b>　開啟客戶官網並提供網址，建議一次提供三頁：首頁、一個產品或服務頁、一個內容或文章頁。<span class="sub">只看首頁不能代表全站。可以每頁分別執行，也可以一次帶入，最後再綜合。</span></li>
       <li><b>Step 2</b>　執行「客戶網站 SEO／GEO 快速健診」主 Prompt。</li>
-      <li><b>Step 3</b>　先看架站平台信心度。<span class="pill p-ok">高／中</span>證據合理可續用報告；<span class="pill p-warn">低／未能確認</span>不要直接採用平台與技術限制結論，進 Step 4。</li>
-      <li><b>Step 4</b>　用「台灣常見架站平台辨識 Reference」進一步判斷。必要時搭配 Wappalyzer、WhatCMS、人工查看原始碼／資產網域／頁尾／結帳網址。仍無法確認就保留「未能確認」，不要硬判。</li>
-      <li><b>Step 5</b>　檢查報告裡所有「需進一步補查」項目。依需求用 Ahrefs（自然搜尋／關鍵字／頁面）、PageSpeed Insights（速度／CWV）、Screaming Frog（全站技術）、site:（收錄線索）。</li>
-      <li><b>Step 6</b>　挑真正適合提案的問題，不要把整份報告直接搬上簡報。快速健診的目的是「找出值得進一步確認與提案切入的問題」，不是在沒有後台與完整爬站資料下替網站下完整技術診斷。</li>
+      <li><b>Step 3</b>　先看架站平台信心度。<span class="opt"><span class="pill p-ok">高／中</span>證據合理，可以繼續使用報告。</span><span class="opt"><span class="pill p-warn">低／未能確認</span>不要直接採用平台與技術限制的結論，進入 Step 4。</span></li>
+      <li><b>Step 4</b>　用「台灣常見架站平台辨識 Reference」進一步判斷。<span class="sub">必要時搭配 Wappalyzer、WhatCMS，或人工查看原始碼、資產網域、頁尾、結帳網址。仍無法確認就保留「未能確認」，不要硬判。</span></li>
+      <li><b>Step 5</b>　檢查報告裡所有「需進一步補查」的項目。<span class="sub">依需求使用 Ahrefs（自然搜尋、關鍵字、頁面）、PageSpeed Insights（速度、CWV）、Screaming Frog（全站技術）、site: 查詢（收錄線索）。</span></li>
+      <li><b>Step 6</b>　挑真正適合提案的問題，不要把整份報告直接搬上簡報。<span class="sub">快速健診是用來找出值得進一步確認、可以切入提案的問題。沒有後台與完整爬站資料，不能替網站下完整的技術診斷。</span></li>
     </ol>
     <h3>進階使用</h3>
     <ul class="tick">
